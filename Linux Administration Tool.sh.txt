@@ -1,0 +1,51 @@
+#!/bin/bash
+
+while true ; do
+echo "1. Add a User to the System."
+echo "2. Remove a User from the System."
+echo "3. Change a User's password."
+echo "4. Show active network connections."
+echo "5. Show failed login attempts."
+echo "0. Logout. (Exit)"
+echo
+
+echo -n "Select an option to continue, or 0 to exit: "
+read option
+echo
+
+case $option in
+1)
+echo "Type the user's username to add them to the system."
+read username
+sudo useradd $username
+echo "User has been created."
+;;
+2)
+echo "Type the user's username to remove them from the system."
+read username
+sudo userdel $username
+echo "User has been removed from the system."
+;;
+3)
+echo "Changing password. Please specify the user's account"
+read username
+sudo passwd $username
+echo "password changed."
+;;
+4)
+echo "Displaying active network connections"
+sudo netstat -a | more
+;;
+5)
+echo "Displaying failed login attempts"
+sudo lastb
+;;
+0)
+echo "Logging off..."
+exit
+;;
+*)
+echo "Incorect value, please type a number between 0 and 5."
+;;
+esac
+done
