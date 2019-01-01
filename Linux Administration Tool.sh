@@ -34,7 +34,7 @@ case $OPTION in
     2)
         echo "Type the user's username to remove them from the system."
         read USERNAME
-        sudo userdel $USERNAME
+        sudo userdel -r $USERNAME
         echo "User has been removed from the system."
         ;;
     3)
@@ -45,19 +45,19 @@ case $OPTION in
         ;;
     4)
         echo "These users are currently logged in: "
-        who | awk '{print $1}' | sort -u | more
+        who | awk '{print $1}' | less
         ;;
     5)
         echo "Disk usage statistics: "
-        df -h | awk '{print $4, $5, $6}' | more
+        df -h | awk '{print $4, $5, $6}' | less
         ;;
     6)
         echo "Displaying active network connections"
-        netstat -atu | more
+        netstat -atu | less
         ;;
     7)
         echo "Displaying failed login attempts"
-        sudo lastb | tac | more
+        sudo lastb | less
         ;;
     8)
         echo "The current date and time is: "
