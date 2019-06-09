@@ -14,7 +14,7 @@ Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" w
 > chmod +x “Linux Administration Tool.sh”
 4.	Change the Windows line endings copied from Git to Linux:
 > sed -i -e 's/\r$//' ‘Linux Administration Tool.sh’
-5.	Run the shell script”
+5.	Run the shell script:
 >	./”Linux Administration Tool.sh”
 
 
