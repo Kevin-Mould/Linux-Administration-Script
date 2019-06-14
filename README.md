@@ -5,17 +5,17 @@ Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" w
 
 # **Installation :-**
 1.	Install Git if you have not done so before:
->> sudo yum -y install git
+> sudo yum -y install git
 2.	Clone the repository locally and navigate there:
->> git clone https://github.com/Kevin-Mould/Linux-Administration-Script.git
+> git clone https://github.com/Kevin-Mould/Linux-Administration-Script.git
 
->> cd linux-administration-script
+> cd linux-administration-script
 3.	Make the script executable:
->> chmod +x “Linux Administration Tool.sh”
+> chmod +x “Linux Administration Tool.sh”
 4.	Change the Windows line endings copied from Git to Linux:
->>  sed -i -e 's/\r$//' ‘Linux Administration Tool.sh’
+>  sed -i -e 's/\r$//' ‘Linux Administration Tool.sh’
 5.	Run the shell script:
->> ./”Linux Administration Tool.sh”
+> ./”Linux Administration Tool.sh”
 
 
 ## **Install Additional Features :-**
