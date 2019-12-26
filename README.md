@@ -4,8 +4,8 @@ This BASH script is designed to assist you in administrating and monitoring a Li
 Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" with "apt-get".
 
 # **Installation :-**
-1.	Install Git:
-> sudo yum -y install git
+1.	Install Git and Network tools (required for option 6):
+> sudo yum -y install git net-tools
 2.	Clone the repository locally and navigate there:
 > git clone https://github.com/Kevin-Mould/Linux-Administration-Script.git
 
@@ -13,15 +13,10 @@ Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" w
 3.	Make the script executable:
 > chmod +x “Linux Administration Tool.sh”
 4.	Change the Windows line endings (CRLF) to Linux line Endings (LF):
->  sed -i -e 's/\r$//' ‘Linux Administration Tool.sh’
+>  sed -i -e 's/\r$//' "Linux Administration Tool.sh"
 5.	Run the shell script:
 > ./”Linux Administration Tool.sh”
 
-
-## **Install Additional Features :-**
-
-•	Option 6, show active network connections requires the net tools package. If needed, install net tools:
-> sudo yum -y install net-tools
 
 Main menu of the script.
 
