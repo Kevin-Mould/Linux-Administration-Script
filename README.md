@@ -4,7 +4,7 @@ This BASH script is designed to assist you in administrating and monitoring a Li
 Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" with "apt-get".
 
 # **Installation :-**
-1.	Install Git if you have not done so before:
+1.	Install Git:
 > sudo yum -y install git
 2.	Clone the repository locally and navigate there:
 > git clone https://github.com/Kevin-Mould/Linux-Administration-Script.git
@@ -12,7 +12,7 @@ Tested on a Red Hat distribution (CentOS 7). Debian users should replace "yum" w
 > cd linux-administration-script
 3.	Make the script executable:
 > chmod +x “Linux Administration Tool.sh”
-4.	Change the Windows line endings copied from Git to Linux:
+4.	Change the Windows line endings (CRLF) to Linux line Endings (LF):
 >  sed -i -e 's/\r$//' ‘Linux Administration Tool.sh’
 5.	Run the shell script:
 > ./”Linux Administration Tool.sh”
