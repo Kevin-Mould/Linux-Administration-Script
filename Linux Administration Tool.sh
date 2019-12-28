@@ -4,6 +4,7 @@ clear
 
 while true ; do
 
+echo "0. Exit script"
 echo "1. Add a user to the system. (Sudo required)"
 echo "2. Remove a user from the system. (Sudo required)"
 echo "3. Change a user's password.(Sudo required)"
@@ -17,7 +18,7 @@ echo "10. Print the current working directory."
 echo
 
 
-echo -n "Select an option between 1-10 to continue, or 'exit' to exit the script: "
+echo -n "Select an option between [0-10] to continue: "
 read OPTION
 clear
 echo
@@ -25,24 +26,48 @@ echo
 
 case $OPTION in
 
+    0)
+	echo "Exited Script."
+	exit
+	;;
     1)
-        echo "Type the user's username to add them to the system."
+        echo "Type a username to add to the system."
         read USERNAME
-        sudo useradd $USERNAME
-        echo "User has been created."
+
+	: '
+	grep statement evulates to boolean True if the inputed USERNAME does not 	exist.
+	grep statement evulates to boolean False if the inputed USERNAME exists.
+	'
+
+	if grep -qw "$USERNAME" /etc/passwd; then
+        	echo "$USERNAME has already been created. No action taken."
+	else
+		sudo useradd $USERNAME
+        	echo "User has been created."
+	fi
         ;;
     2)
-        echo "Type the user's username to remove them from the system."
+        echo "Type a username to remove it from the system."
         read USERNAME
-        sudo userdel -r $USERNAME
-        echo "User has been removed from the system."
+	
+	if grep -qw "$USERNAME" /etc/passwd; then
+        	sudo userdel -r $USERNAME
+        	echo "$USERNAME has been removed from the system."
+	else
+		echo "$USERNAME does not exist, no action taken."
+	fi
         ;;
     3)
-        echo "Changing password. Please specify the user's account"
+        echo "To change/add a password, type the account's username."
         read USERNAME
-        sudo passwd $USERNAME
-        echo "password changed."
-        ;;
+	
+	if grep -qw "$USERNAME" /etc/passwd; then
+        	sudo passwd $USERNAME
+        	echo "Password of account $USERNAME has been modified."
+	else
+		echo "$USERNAME does not exist, can not change password."
+        fi
+	;;
     4)
         echo "These users are currently logged in: "
         who | awk '{print $1}' | less
@@ -70,10 +95,6 @@ case $OPTION in
     10)
         echo "The current working directory is: "
         pwd
-        ;;
-    exit | EXIT)
-        echo "Exited Script."
-        exit
         ;;
     *)
         echo "Incorect value, please type a number between 1 and 10, or 'exit' to exit the script."
