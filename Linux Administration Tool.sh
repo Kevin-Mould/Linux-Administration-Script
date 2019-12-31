@@ -10,9 +10,15 @@ echo "2. Remove a user from the system."
 echo "3. Change a user's password."
 echo "4. Find a file on the system."
 echo "5. List of currently logged in users."
+<<<<<<< HEAD
 echo "6. Display disk usage statistics for each user in /home."
 echo "7. Show all TCP/UDP/UNIX network connections."
 echo "8. Update all system packages to the latest version."
+=======
+echo "6. Display disk usage statistics."
+echo "7. Show active network connections."
+echo "8. Show failed login attempts."
+>>>>>>> eb2bd83d7c0d707537007fa1e1093bfbde3f310e
 echo "9. Perform a local directory backup using rsync."
 echo "10. Perform a port scan of this computer using nmap."
 echo
@@ -115,6 +121,7 @@ case $option in
     4)
 	echo "Type the filename to search the system."
 	read fileName
+<<<<<<< HEAD
 	sudo find / -name "$fileName" | less 
 	;;
     5)
@@ -134,6 +141,25 @@ case $option in
     8)
         echo "Upadting software packages..."
         sudo yum update
+=======
+	sudo find / -name "$fileName" 
+	;;
+    5)
+        echo "These users are currently logged in: "
+        who | awk '{print $1}' | less
+        ;;
+    6)
+        echo "Disk usage statistics: "
+        df -h | awk '{print $4, $5, $6}' | less
+        ;;
+    7)
+        echo "Displaying active network connections"
+        netstat -atu | less
+        ;;
+    8)
+        echo "Displaying failed login attempts"
+        sudo lastb | less
+>>>>>>> eb2bd83d7c0d707537007fa1e1093bfbde3f310e
         ;;
     9)
 	backupDirectory
@@ -142,14 +168,22 @@ case $option in
 	checkNmapPackage
 	;;
     *)
+<<<<<<< HEAD
         echo "Incorect value, please type a number between [0-10], with "0" indicating exit."
+=======
+        echo "Incorect value, please type a number between 1 and 10, or 'exit' to exit the script."
+>>>>>>> eb2bd83d7c0d707537007fa1e1093bfbde3f310e
         ;;
 
 esac
 
 
 echo
+<<<<<<< HEAD
 echo "End of command, press enter to return to the menu."
+=======
+echo "End of command, press any button to return to the menu."
+>>>>>>> eb2bd83d7c0d707537007fa1e1093bfbde3f310e
 read option
 clear
 
