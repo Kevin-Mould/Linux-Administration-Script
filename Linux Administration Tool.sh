@@ -13,25 +13,49 @@ echo "5. List of currently logged in users."
 echo "6. Display disk usage statistics."
 echo "7. Show active network connections."
 echo "8. Show failed login attempts."
-echo "9. Display the system hostname."
+echo "9. Perform a local directory backup using rsync."
 echo "10. Perform a port scan of this computer using nmap."
 echo
 
 
 echo -n "Select an option between [0-10] to continue: "
-read OPTION
+read option
 clear
 echo
 
+backupDirectory(){
+        echo "Checking for required packages Rsync..."
+	if rpm -qa | grep rsync; then
+		echo "Rsync is installed."
+	else
+		echo "Rsync is not installed. Install it y/n?"
+		read "userOption"
+		if [ "$userOption" = "y" ]; then
+			sudo yum -y install rsync
+		else
+			echo "This option requires Rsync, returning to main menu"
+			return
+		fi
+	fi
+	userName=$(logname)
+	echo "What directory would you like to backup? Example: /home/$userName"
+	read "source"
+	echo "Where should the backup be saved? Example: /home/$userName/backup"
+	read "destination"
+	mkdir "$destination"
+	echo "Backing up directory..."
+	sudo rsync -av --delete /"$source"/ /"$destination"/
+}
+
 checkNmapPackage() {
 	echo "Checking for required package Nmap..."
-	if rpm -qa | grep {nmap}; then
+	if rpm -qa | grep nmap; then
 		echo "Nmap is installed."
 	else
 		echo "Nmap is not installed. Install it y/n?"
-		read "TEST"
-		if [ "$TEST" = "y" ]; then
-			sudo yum install nmap
+		read "userOption"
+		if [ "$userOption" = "y" ]; then
+			sudo yum -y install nmap
 		else
 			return
 		fi
@@ -41,7 +65,7 @@ checkNmapPackage() {
 	nmap -Pn -T4 -A -p- $MYIP
 }		
 
-case $OPTION in
+case $option in
 
     0)
 	echo "Exited Script."
@@ -49,46 +73,49 @@ case $OPTION in
 	;;
     1)
         echo "Type a username to add to the system."
-        read USERNAME
+        read userName
 
 	: '
-	grep statement evulates to boolean True if the inputed USERNAME does not exist.
-	grep statement evulates to boolean False if the inputed USERNAME exists.
+	if statement flow:
+	if grep finds something
+		do this
+	else grep does not find anything
+		do this
 	'
 
-	if grep -qw "$USERNAME" /etc/passwd; then
-        	echo "$USERNAME has already been created. No action taken."
+	if grep -qw "$eserName" /etc/passwd; then
+        	echo "$userName has already been created. No action taken."
 	else
-		sudo useradd $USERNAME
-        	echo "$USERNAME has been created."
+		sudo useradd $userName
+        	echo "$userName has been created."
 	fi
         ;;
     2)
         echo "Type a username to remove it from the system."
-        read USERNAME
+        read userName
 	
-	if grep -qw "$USERNAME" /etc/passwd; then
-        	sudo userdel -r $USERNAME
-        	echo "$USERNAME has been removed from the system."
+	if grep -qw "$userName" /etc/passwd; then
+        	sudo userdel -r $userName
+        	echo "$userName has been removed from the system."
 	else
-		echo "$USERNAME does not exist, no action taken."
+		echo "$userName does not exist, no action taken."
 	fi
         ;;
     3)
         echo "To change/add a password, type the account's username."
-        read USERNAME
+        read userName
 	
-	if grep -qw "$USERNAME" /etc/passwd; then
-        	sudo passwd $USERNAME
-        	echo "Password of account $USERNAME has been modified."
+	if grep -qw "$userName" /etc/passwd; then
+        	sudo passwd $userName
+        	echo "Password of account $userName has been modified."
 	else
-		echo "$USERNAME does not exist, can not change password."
+		echo "$userName does not exist, can not change password."
         fi
 	;;
     4)
 	echo "Type the filename to search the system."
-	read FILENAME
-	sudo find / -name "$FILENAME" 
+	read fileName
+	sudo find / -name "$fileName" 
 	;;
     5)
         echo "These users are currently logged in: "
@@ -107,8 +134,7 @@ case $OPTION in
         sudo lastb | less
         ;;
     9)
-        echo "The system hostname is: "
-        hostname
+	backupDirectory
         ;;
    10)
 	checkNmapPackage
@@ -122,7 +148,7 @@ esac
 
 echo
 echo "End of command, press any button to return to the menu."
-read OPTION
+read option
 clear
 
 
