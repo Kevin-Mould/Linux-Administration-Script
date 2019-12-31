@@ -83,7 +83,7 @@ case $option in
 		do this
 	'
 
-	if grep -qw "$eserName" /etc/passwd; then
+	if grep -qw "$userName" /etc/passwd; then
         	echo "$userName has already been created. No action taken."
 	else
 		sudo useradd $userName
