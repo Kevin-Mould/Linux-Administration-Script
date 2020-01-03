@@ -11,7 +11,7 @@ echo "3. Change a user's password."
 echo "4. Find a file on the system."
 echo "5. List of currently logged in users."
 echo "6. Display disk usage statistics for each user in /home."
-echo "7. Show all TCP/UDP/UNIX network connections."
+echo "7. Show a summary of TCP/UDP network connections."
 echo "8. Update all system packages to the latest version."
 echo "9. Perform a local directory backup using rsync."
 echo "10. Perform a port scan of this computer using nmap."
@@ -62,7 +62,7 @@ checkNmapPackage() {
 	fi
 	echo "I'm using your IP address to perform a port scan using nmap..."
 	MYIP=$(ip -o addr show up primary scope global | while read -r num dev fam addr rest; do echo ${addr%/*}; done)
-	nmap -Pn -T4 -A -p- $MYIP
+	nmap -Pn -T4 -p- -A $MYIP
 }		
 
 case $option in
@@ -124,12 +124,12 @@ case $option in
     6)
 	for user in /home/*; do
         echo "Displaying disk usage statistics for $user: "
-        du -shc $user | less
+        sudo du -shc $user | less
 	done
         ;;
     7)
-        echo "Displaying TCP/UDP/UNIX network connections"
-        ss -tux | less
+        echo "Displaying summary of TCP/UDP network connections"
+        ss -s | less
         ;;
     8)
         echo "Upadting software packages..."
