@@ -9,7 +9,7 @@ Commands in this script are designed for Red Hat Linux Distributions. Tested on 
 2.	Clone the repository locally and navigate there:
 > git clone https://github.com/Kevin-Mould/Linux-Administration-Script.git
 
-> cd linux-administration-script
+> cd Linux-Administration-Script
 3.	Make the script executable:
 > chmod +x “Linux Administration Tool.sh”
 4.	Change the Windows line endings (CRLF) to Linux line Endings (LF):
