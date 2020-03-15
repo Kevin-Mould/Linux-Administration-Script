@@ -66,9 +66,11 @@ Option 9 - Perform a directory backup using rsync:
 
 ![](Pictures/backupDirectorySuccess.PNG)
 
-Option 10 - Perform a port scan of this computer using nmap:
+Option 10 - Perform a port scan of this computer using nmap, Secure Computer vs Unsecured Computer: (If you are interested in the unsecure computer it is part of my homelab and running an intentionally vulnerable OS called Metasploitable. More info at https://information.rapid7.com/download-metasploitable-2017.html)
 
 ![](Pictures/nmapScan.PNG)
+
+![](Pictures/nmapUnsecure.PNG)
 
 Error catching wildcard:
 
